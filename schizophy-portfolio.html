@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Schizophy — Roblox Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f5f3ef;
+  --bg2:      #eeebe5;
+  --ink:      #16140f;
+  --ink2:     #3a3830;
+  --muted:    #8c8880;
+  --line:     #dbd8d0;
+  --accent:   #c8602a;
+  --accent-l: #e8d5c8;
+  --white:    #faf9f7;
+  --card:     #faf9f7;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.4rem 4rem;
+  background: rgba(245,243,239,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.nav-logo em { font-style: italic; color: var(--accent); }
+nav ul { list-style: none; display: flex; gap: 2.5rem; }
+nav ul a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+nav ul a:hover { color: var(--ink); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  padding: 7rem 4rem 5rem;
+  gap: 4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2.2rem;
+  animation: fadeUp 0.8s ease both;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--accent);
+  display: block;
+}
+
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(3.4rem, 6vw, 6rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  animation: fadeUp 0.8s 0.08s ease both;
+}
+h1 em { font-style: italic; color: var(--accent); }
+
+.hero-right {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  gap: 2.5rem;
+  animation: fadeUp 0.8s 0.18s ease both;
+}
+
+.hero-desc {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--ink2);
+  max-width: 440px;
+}
+
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+.stat-cell {
+  padding: 1.4rem 1.2rem;
+  border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 0.3rem;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  color: var(--ink);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.22s;
+}
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover { background: var(--accent); }
+.btn-ghost { border: 1px solid var(--line); color: var(--ink2); background: transparent; }
+.btn-ghost:hover { border-color: var(--ink); }
+
+/* ── SECTION SHARED ── */
+.section-wrap { padding: 6rem 4rem; border-bottom: 1px solid var(--line); }
+
+.section-label {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3.5rem;
+}
+.section-label span { display: inline-block; width: 20px; height: 1px; background: var(--accent); }
+
+h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+h2 em { font-style: italic; color: var(--accent); }
+
+/* ── ABOUT ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: 5rem;
+  align-items: start;
+  margin-top: 3rem;
+}
+.about-body p {
+  font-size: 0.9rem;
+  line-height: 2;
+  color: var(--ink2);
+  margin-bottom: 1.2rem;
+}
+.about-body p strong { color: var(--ink); font-weight: 500; }
+
+.about-sidebar { display: flex; flex-direction: column; gap: 2rem; }
+
+.sidebar-block {
+  padding: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+}
+.sidebar-block-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.skill-list { display: flex; flex-direction: column; gap: 0.65rem; }
+.skill-item {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.8rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink2);
+}
+.skill-item:last-child { border-bottom: none; padding-bottom: 0; }
+.skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.35; }
+.skill-dot.full { opacity: 1; }
+.skill-dot.high { opacity: 0.65; }
+
+.tag-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tag {
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  transition: all 0.18s;
+}
+.tag:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── WORKFLOW ── */
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 3rem;
+}
+.workflow-cell {
+  background: var(--card);
+  padding: 2.2rem 2rem;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.workflow-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg2);
+  border-radius: 2px;
+  color: var(--accent);
+}
+.workflow-icon svg { width: 20px; height: 20px; }
+.workflow-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+.workflow-desc {
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: var(--muted);
+  flex: 1;
+}
+.workflow-mono {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.67rem;
+  color: var(--accent);
+  background: var(--accent-l);
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  display: inline-block;
+  width: fit-content;
+}
+
+/* ── PROJECTS ── */
+.projects-list { display: flex; flex-direction: column; margin-top: 3rem; }
+
+.project-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 200px;
+  align-items: start;
+  gap: 3rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--line);
+  transition: all 0.2s;
+}
+.project-row:first-child { border-top: 1px solid var(--line); }
+.project-row:hover { background: var(--bg2); margin: 0 -2rem; padding: 2.5rem 2rem; }
+
+.project-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--muted);
+  padding-top: 0.25rem;
+}
+.project-img-strip {
+  width: 100%; aspect-ratio: 16/9;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1rem;
+}
+.project-img-strip img { width: 100%; height: 100%; object-fit: cover; }
+.project-img-strip .ph {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--line);
+}
+
+.project-main { display: flex; flex-direction: column; gap: 0.75rem; }
+.project-category {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.project-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.45rem;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.project-desc {
+  font-size: 0.82rem;
+  line-height: 1.85;
+  color: var(--muted);
+}
+
+.project-meta { display: flex; flex-direction: column; gap: 1rem; align-items: flex-end; padding-top: 0.25rem; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: flex-end; }
+.project-tag {
+  padding: 0.22rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 0.62rem;
+  color: var(--muted);
+}
+.project-links { display: flex; gap: 1rem; }
+.project-link {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.18s;
+  letter-spacing: 0.04em;
+}
+.project-link:hover { color: var(--accent); }
+
+/* ── CONTACT ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+  margin-top: 3rem;
+}
+.contact-desc {
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: var(--ink2);
+  margin-top: 0.5rem;
+}
+.contact-desc strong { color: var(--ink); font-weight: 500; }
+
+.avail-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  margin-bottom: 1.2rem;
+}
+.avail-dot {
+  width: 6px; height: 6px;
+  background: #43a047;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.contact-cards { display: flex; flex-direction: column; gap: 0.75rem; }
+.contact-card {
+  display: flex; align-items: center; gap: 1.2rem;
+  padding: 1.2rem 1.4rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.contact-card:hover { border-color: var(--ink); }
+.contact-card-icon {
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg2);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.contact-card-info { flex: 1; display: flex; flex-direction: column; gap: 0.15rem; }
+.contact-card-platform {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.contact-card-handle { font-size: 0.88rem; color: var(--ink); }
+.contact-card-arrow { color: var(--muted); transition: transform 0.2s, color 0.2s; }
+.contact-card:hover .contact-card-arrow { transform: translateX(3px); color: var(--accent); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 1.8rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+footer p { font-size: 0.7rem; letter-spacing: 0.06em; color: var(--muted); }
+footer a { color: var(--muted); text-decoration: none; transition: color 0.18s; }
+footer a:hover { color: var(--accent); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1.2rem 1.5rem; }
+  nav ul { display: none; }
+  #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; min-height: auto; }
+  .section-wrap { padding: 4rem 1.5rem; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .workflow-grid { grid-template-columns: 1fr; }
+  .project-row { grid-template-columns: 1fr; gap: 1rem; }
+  .project-meta { align-items: flex-start; }
+  footer { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">Schizo<em>phy</em></a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#workflow">Workflow</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Roblox Developer · 8 Years</div>
+    <h1>Full-stack<br><em>studio</em><br>engineering.</h1>
+  </div>
+  <div class="hero-right">
+    <p class="hero-desc">
+   Eight Years of Full-Stack Roblox Development. Combat Systems, UI/UX, Server Architecture, and experience in numerous other areas of Roblox Studio.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-cell">
+        <span class="stat-num">8+</span>
+        <span class="stat-label">Years scripting</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">FS</span>
+        <span class="stat-label">Full-stack</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Systems built</span>
+      </div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn btn-primary">View Work</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-label"><span></span> About</div>
+    <h2>Eight years of Studio,<br><em>reliable work.</em></h2>
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p>
+          I'm <strong>Schizophy</strong> — a full-stack Roblox developer with over eight years of
+          experience across multiple areas of Studio. My focus areas are <strong>Front-End systems, though I have lots of experience in back-end work</strong>,
+          <strong>UI/UX engineering</strong>, and <strong>Anti-Cheat systems</strong>.
+        </p>
+        <p>
+          Combat is where most of my experience lies, and is my main passion.
+        </p>
+        <p>
+          On the UI side, I have experience in design and implementation of UI systems — from HUD elements to complex menu suites.
+        </p>
+        <p>
+          Beyond scripting, I'm fluent across <strong>animation, rigging, and the broader Studio
+          pipeline</strong> — which means I can work end-to-end without handoff gaps or communication overhead.
+        </p>
+      </div>
+      <div class="about-sidebar reveal">
+        <div class="sidebar-block">
+          <div class="sidebar-block-label">Specialisations</div>
+          <div class="skill-list">
+            <div class="skill-item">Combat Systems <div class="skill-dot full"></div></div>
+            <div class="skill-item">UI / UX Scripting <div class="skill-dot full"></div></div>
+            <div class="skill-item">World Building <div class="skill-dot high"></div></div>
+            <div class="skill-item">Animation & Rigging <div class="skill-dot high"></div></div>
+            <div class="skill-item">DataStore & Persistence <div class="skill-dot high"></div></div>
+            <div class="skill-item">Performance Optimisation <div class="skill-dot full"></div></div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sidebar-block-label">Technologies</div>
+          <div class="tag-wrap">
+            <span class="tag">Lua / Luau</span>
+            <span class="tag">Roblox Studio</span>
+            <span class="tag">RemoteEvents</span>
+            <span class="tag">OOP & Modules</span>
+            <span class="tag">Rojo</span>
+            <span class="tag">VS Code</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">Tweening</span>
+            <span class="tag">Lag Compensation</span>
+            <span class="tag">Rigging</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section id="workflow">
+  <div class="section-wrap" style="background: var(--bg2);">
+    <div class="section-label"><span></span> Development Workflow</div>
+    <h2>Strong scripting.<br><em>I write code to last, clean and effecient for the sake of other developers, and players.</em></h2>
+    <div class="workflow-grid reveal">
+
+      <div class="workflow-cell">
+        <div class="workflow-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M16.5 3L8 12l8.5 9L21 19.5l-9-7.5L21 4.5 16.5 3z"/>
+            <path d="M3 7l5 5-5 5V7z"/>
+          </svg>
+        </div>
+        <div class="workflow-title">VS Code</div>
+        <div class="workflow-desc">
+         Experience using VS Code, alongside the Roblox Studio editor,
+          meaning I feel at home in any enviornment provided for my work.
+        </div>
+        <div class="workflow-mono">luau-lsp · selene · stylua</div>
+      </div>
+
+      <div class="workflow-cell">
+        <div class="workflow-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 3"/>
+            <path d="M7 12H3M21 12h-4"/>
+          </svg>
+        </div>
+        <div class="workflow-title">Rojo</div>
+        <div class="workflow-desc">
+          Familiarity with Rojo and file-based workflows,
+           which means I can easily slot into any team setup and avoid 
+           the pitfalls of the traditional Studio workflow. 
+           Used in numerous projects.
+        </div>
+        <div class="workflow-mono">rojo.json · live sync · file-based</div>
+      </div>
+
+      <div class="workflow-cell">
+        <div class="workflow-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+          </svg>
+        </div>
+        <div class="workflow-title">GitHub</div>
+        <div class="workflow-desc">
+          Experience in GitHub version control, including branching strategies and maintaining clean commit history.
+           I am able to use Git for any of my projects that request it of me,
+            ensuring that my code is well-documented and easy to navigate for any collaborators or future maintainers.
+        </div>
+        <div class="workflow-mono">git · branches · clean history</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-label"><span></span> Selected Work</div>
+    <h2>Projects &amp; <em>commissions.</em></h2>
+    <div class="projects-list">
+
+      <div class="project-row reveal">
+        <div>
+          <div class="project-num">01</div>
+         <div class="project-img-strip">
+  <img src="Jedi.jpg" alt="The New Jedi Order"/>
+        </div>
+        </div>
+        <div class="project-main">
+          <span class="project-category">Combat System, Bug Fixes, and Game Rework</span>
+          <h3 class="project-title">》The New Jedi Order《 by barondevalentino</h3>
+          <p class="project-desc">
+            For a short while from the end of 2025 to early 2026, 
+            I took on a position in 》The New Jedi Order《 while searching for a Star Wars project in need of help.
+            I was the lead scripter, with a main focus on fixing broken systems previously implemented by other developers, and building out the combat system for the game. 
+            My beginning work started with the implementation of a new planet, and the Sith Order for the game. 
+            Work on combat outside of the bug fixes I implemented was to come after the new Order was implemented, but the game changed ownership and my original deal
+            was not to be upheld, as new Project Leads desired to run the game with a stricter outlook influenced by nostalgia.
+          </p>
+        </div>
+        <div class="project-meta">
+          <div class="project-tags">
+            <span class="project-tag">Luau</span>
+            <span class="project-tag">Combat</span>
+            <span class="project-tag">Animation</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.roblox.com/communities/11668364/The-New-Jedi-Order#!/about" class="project-link" target="_blank">https://www.roblox.com/communities/11668364/The-New-Jedi-Order#!/about ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-row reveal">
+        <div>
+          <div class="project-num">02</div>
+        <div class="project-img-strip">
+  <img src="booga.jpg" alt="Combat system"/>
+</div>
+        </div>
+        <div class="project-main">
+          <span class="project-category">UI / UX, Content Updates, and Combat Rewrite</span>
+          <h3 class="project-title">Booga Booga & Booga Booga Hybrid by Soybeen</h3>
+          <p class="project-desc">
+            For a couple years alongside 2 other main developers I worked for Soybeen in implementing new content
+            for Booga Booga, directly after it's steady decline began after his short break.
+            My work on the game included a complete rewrite of the combat system, and the implementation of a new UI suite for the game, alongside various content updates.
+            The project was ultimately, with little warning, cancelled and made open source by Soybeen due to a desire to leave the platform. 
+            While the end was bitter, the time I spent in Booga Booga was amazing and I learned a lot about various systems working on the project.
+          </p>
+        </div>
+        <div class="project-meta">
+          <div class="project-tags">
+            <span class="project-tag">UI Design</span>
+            <span class="project-tag">Tweening</span>
+            <span class="project-tag">Components</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.roblox.com/communities/2841240/Soybeen#!/about" class="project-link" target="_blank">https://www.roblox.com/communities/2841240/Soybeen#!/about ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-row reveal">
+        <div>
+          <div class="project-num">03</div>
+      <div class="project-img-strip">
+  <img src="tripod.jpg" alt="Tripod Simulator"/>
+</div>
+        </div>
+        <div class="project-main">
+          <span class="project-category">Full-Stack development and Project Management</span>
+          <h3 class="project-title">Tripod Simulator</h3>
+          <p class="project-desc">
+            Lead Scripter on a smaller, yet well made simulator game based on the War of the Worlds movies.
+            The project was shut down after hype surrounding the movie died down, but this project was more of a passion project for me as a fan of the movies regardless.
+            Old versions of the game are still up to be played, however not as pristine as we who once worked on the project would like.
+          </p>
+        </div>
+        <div class="project-meta">
+          <div class="project-tags">
+            <span class="project-tag">Project Management</span>
+            <span class="project-tag">Full-Stack Development</span>
+            <span class="project-tag">Ownership</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.roblox.com/games/9542349477/Moved ↗" class="project-link" target="_blank">https://www.roblox.com/games/9542349477/Moved ↗</a>
+            <a href="https://www.roblox.com/games/121038929262114/Tripod-Simulator ↗" class="project-link" target="_blank">https://www.roblox.com/games/121038929262114/Tripod-Simulator ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-row reveal">
+        <div>
+          <div class="project-num">03</div>
+       <div class="project-img-strip">
+  <img src="philly.jpg" alt="North Philly"/>
+</div>
+        </div>
+        <div class="project-main">
+          <span class="project-category">Datastores, Vehicle Systems, Bug fixes, and long time Contract work.</span>
+          <h3 class="project-title">North Philly, and subsequent inner-city roleplaying games by Rbxreece</h3>
+          <p class="project-desc">
+            DataStores, Most of the gun system, cars, and all of the main UI work.
+            Rbxreece sold ownership to the game to a long time community member circa late 2024, 
+            and my contact with Reece ceased around the end of the project as he stepped away from Roblox development.
+            Though many of my contributions have been replaced in the game, there are still hints of where I worked in the past, 
+            and during it's time the community surrounding these games was very enjoyable.
+          </p>
+        </div>
+        <div class="project-meta">
+          <div class="project-tags">
+            <span class="project-tag">Datastores</span>
+            <span class="project-tag">Vehicle and Combat Systems</span>
+            <span class="project-tag">Bug fixes</span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="project-row reveal">
+        <div>
+          <div class="project-num">03</div>
+        <div class="project-img-strip">
+  <img src="fruit.jpg" alt="One Fruit"/>
+        </div>
+        </div>
+        <div class="project-main">
+          <span class="project-category">Backend Development early in the game's life</span>
+          <h3 class="project-title">One Fruit</h3>
+          <p class="project-desc">
+            Regretably not much credit for this game can be claimed as my own, as it is one of the most popular projects I have worked on
+            however, my contributions were noticeable in the game's early life. I did mostly contract work in early 2022 and have since moved far away from the project
+            but I look fondly upon the enviornment that surrounded the game in it's early life. One of the most enjoyable teams I've ever worked with and 
+            a project I really had a passion for in the beginning. 
+          </p>
+        </div>
+        <div class="project-meta">
+          <div class="project-tags">
+            <span class="project-tag">Backend Development</span>
+            <span class="project-tag">Testing Leadership</span>
+            <span class="project-tag">Minor work in VFX</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.roblox.com/games/11445923563/ONE-FRUIT" target="_blank" class="project-link">Play One Fruit</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="section-label"><span></span> Contact</div>
+    <h2>Let's build<br><em>something.</em></h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="avail-pill"><div class="avail-dot"></div> Available for work</div>
+        <p class="contact-desc">
+          Whether you need a <strong>single system scripted</strong>, a full game built from the ground up,
+          or a reliable developer to embed in your team — I'm open to commissions, freelance contracts,
+          and long-term collaborations.
+        </p>
+        <br>
+        <p class="contact-desc">
+          If you take an interest in having me on your team, reach out for a more in-depth account of past works, addiontal references and projects, 
+          or discussion of rates and availability. I'm happy to talk through any potential work, and can be reached most reliably through Discord.
+        </p>
+      </div>
+      <div class="contact-cards reveal">
+        <a href="https://discord.com/users/Scisophy" target="_blank" class="contact-card">
+          <div class="contact-card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+          </div>
+          <div class="contact-card-info">
+            <span class="contact-card-platform">Discord</span>
+            <span class="contact-card-handle">Scisophy</span>
+          </div>
+          <span class="contact-card-arrow">→</span>
+        </a>
+        <a href="https://www.roblox.com/search/users?keyword=Schizophy" target="_blank" class="contact-card">
+          <div class="contact-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ink)"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="8" y="8" width="8" height="8" rx="1" fill="var(--bg)"/></svg>
+          </div>
+          <div class="contact-card-info">
+            <span class="contact-card-platform">Roblox</span>
+            <span class="contact-card-handle">@Schizophy</span>
+          </div>
+          <span class="contact-card-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Schizophy. All rights reserved.</p>
+  <p>Built clean. Versioned. <a href="#workflow">How I work →</a></p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 90);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
