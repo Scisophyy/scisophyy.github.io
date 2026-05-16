@@ -337,15 +337,17 @@ h2 em { font-style: italic; color: var(--accent); }
   font-size: 0.62rem;
   color: var(--muted);
 }
-.project-links { display: flex; gap: 1rem; }
+.project-links { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; }
 .project-link {
   font-size: 0.72rem;
   color: var(--muted);
   text-decoration: none;
   transition: color 0.18s;
   letter-spacing: 0.04em;
+  display: inline-flex; align-items: center; gap: 0.3rem;
 }
 .project-link:hover { color: var(--accent); }
+.project-link svg { width: 10px; height: 10px; flex-shrink: 0; }
 
 /* ── CONTACT ── */
 .contact-grid {
@@ -466,7 +468,7 @@ footer a:hover { color: var(--accent); }
   </div>
   <div class="hero-right">
     <p class="hero-desc">
-   Eight Years of Full-Stack Roblox Development. Combat Systems, UI/UX, Server Architecture, and experience in numerous other areas of Roblox Studio.
+      Eight Years of Full-Stack Roblox Development. Combat Systems, UI/UX, Server Architecture, and experience in numerous other areas of Roblox Studio.
     </p>
     <div class="hero-stats">
       <div class="stat-cell">
@@ -548,7 +550,7 @@ footer a:hover { color: var(--accent); }
 <section id="workflow">
   <div class="section-wrap" style="background: var(--bg2);">
     <div class="section-label"><span></span> Development Workflow</div>
-    <h2>Strong scripting.<br><em>I write code to last, clean and effecient for the sake of other developers, and players.</em></h2>
+    <h2>Strong scripting.<br><em>I write code to last, clean and efficient for the sake of other developers, and players.</em></h2>
     <div class="workflow-grid reveal">
 
       <div class="workflow-cell">
@@ -560,8 +562,8 @@ footer a:hover { color: var(--accent); }
         </div>
         <div class="workflow-title">VS Code</div>
         <div class="workflow-desc">
-         Experience using VS Code, alongside the Roblox Studio editor,
-          meaning I feel at home in any enviornment provided for my work.
+          Experience using VS Code alongside the Roblox Studio editor,
+          meaning I feel at home in any environment provided for my work.
         </div>
         <div class="workflow-mono">luau-lsp · selene · stylua</div>
       </div>
@@ -577,9 +579,9 @@ footer a:hover { color: var(--accent); }
         <div class="workflow-title">Rojo</div>
         <div class="workflow-desc">
           Familiarity with Rojo and file-based workflows,
-           which means I can easily slot into any team setup and avoid 
-           the pitfalls of the traditional Studio workflow. 
-           Used in numerous projects.
+          which means I can easily slot into any team setup and avoid
+          the pitfalls of the traditional Studio workflow.
+          Used in numerous projects.
         </div>
         <div class="workflow-mono">rojo.json · live sync · file-based</div>
       </div>
@@ -593,8 +595,8 @@ footer a:hover { color: var(--accent); }
         <div class="workflow-title">GitHub</div>
         <div class="workflow-desc">
           Experience in GitHub version control, including branching strategies and maintaining clean commit history.
-           I am able to use Git for any of my projects that request it of me,
-            ensuring that my code is well-documented and easy to navigate for any collaborators or future maintainers.
+          I am able to use Git for any of my projects that request it,
+          ensuring that my code is well-documented and easy to navigate for any collaborators or future maintainers.
         </div>
         <div class="workflow-mono">git · branches · clean history</div>
       </div>
@@ -610,21 +612,22 @@ footer a:hover { color: var(--accent); }
     <h2>Projects &amp; <em>commissions.</em></h2>
     <div class="projects-list">
 
+      <!-- PROJECT 01 -->
       <div class="project-row reveal">
         <div>
           <div class="project-num">01</div>
-         <div class="project-img-strip">
-  <img src="Jedi.jpg" alt="The New Jedi Order"/>
-        </div>
+          <div class="project-img-strip">
+            <img src="Jedi.jpg" alt="The New Jedi Order"/>
+          </div>
         </div>
         <div class="project-main">
           <span class="project-category">Combat System, Bug Fixes, and Game Rework</span>
           <h3 class="project-title">》The New Jedi Order《 by barondevalentino</h3>
           <p class="project-desc">
-            For a short while from the end of 2025 to early 2026, 
+            For a short while from the end of 2025 to early 2026,
             I took on a position in 》The New Jedi Order《 while searching for a Star Wars project in need of help.
-            I was the lead scripter, with a main focus on fixing broken systems previously implemented by other developers, and building out the combat system for the game. 
-            My beginning work started with the implementation of a new planet, and the Sith Order for the game. 
+            I was the lead scripter, with a main focus on fixing broken systems previously implemented by other developers, and building out the combat system for the game.
+            My beginning work started with the implementation of a new planet, and the Sith Order for the game.
             Work on combat outside of the bug fixes I implemented was to come after the new Order was implemented, but the game changed ownership and my original deal
             was not to be upheld, as new Project Leads desired to run the game with a stricter outlook influenced by nostalgia.
           </p>
@@ -636,26 +639,30 @@ footer a:hover { color: var(--accent); }
             <span class="project-tag">Animation</span>
           </div>
           <div class="project-links">
-            <a href="https://www.roblox.com/communities/11668364/The-New-Jedi-Order#!/about" class="project-link" target="_blank">https://www.roblox.com/communities/11668364/The-New-Jedi-Order#!/about ↗</a>
+            <a href="https://www.roblox.com/communities/11668364/The-New-Jedi-Order#!/about" target="_blank" class="project-link">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M4 2h6v6"/></svg>
+              View Community
+            </a>
           </div>
         </div>
       </div>
 
+      <!-- PROJECT 02 -->
       <div class="project-row reveal">
         <div>
           <div class="project-num">02</div>
-        <div class="project-img-strip">
-  <img src="booga.jpg" alt="Combat system"/>
-</div>
+          <div class="project-img-strip">
+            <img src="booga.jpg" alt="Booga Booga"/>
+          </div>
         </div>
         <div class="project-main">
           <span class="project-category">UI / UX, Content Updates, and Combat Rewrite</span>
           <h3 class="project-title">Booga Booga & Booga Booga Hybrid by Soybeen</h3>
           <p class="project-desc">
             For a couple years alongside 2 other main developers I worked for Soybeen in implementing new content
-            for Booga Booga, directly after it's steady decline began after his short break.
+            for Booga Booga, directly after its steady decline began after his short break.
             My work on the game included a complete rewrite of the combat system, and the implementation of a new UI suite for the game, alongside various content updates.
-            The project was ultimately, with little warning, cancelled and made open source by Soybeen due to a desire to leave the platform. 
+            The project was ultimately, with little warning, cancelled and made open source by Soybeen due to a desire to leave the platform.
             While the end was bitter, the time I spent in Booga Booga was amazing and I learned a lot about various systems working on the project.
           </p>
         </div>
@@ -666,20 +673,24 @@ footer a:hover { color: var(--accent); }
             <span class="project-tag">Components</span>
           </div>
           <div class="project-links">
-            <a href="https://www.roblox.com/communities/2841240/Soybeen#!/about" class="project-link" target="_blank">https://www.roblox.com/communities/2841240/Soybeen#!/about ↗</a>
+            <a href="https://www.roblox.com/communities/2841240/Soybeen#!/about" target="_blank" class="project-link">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M4 2h6v6"/></svg>
+              View Community
+            </a>
           </div>
         </div>
       </div>
 
+      <!-- PROJECT 03 -->
       <div class="project-row reveal">
         <div>
           <div class="project-num">03</div>
-      <div class="project-img-strip">
-  <img src="tripod.jpg" alt="Tripod Simulator"/>
-</div>
+          <div class="project-img-strip">
+            <img src="tripod.jpg" alt="Tripod Simulator"/>
+          </div>
         </div>
         <div class="project-main">
-          <span class="project-category">Full-Stack development and Project Management</span>
+          <span class="project-category">Full-Stack Development and Project Management</span>
           <h3 class="project-title">Tripod Simulator</h3>
           <p class="project-desc">
             Lead Scripter on a smaller, yet well made simulator game based on the War of the Worlds movies.
@@ -690,69 +701,79 @@ footer a:hover { color: var(--accent); }
         <div class="project-meta">
           <div class="project-tags">
             <span class="project-tag">Project Management</span>
-            <span class="project-tag">Full-Stack Development</span>
+            <span class="project-tag">Full-Stack</span>
             <span class="project-tag">Ownership</span>
           </div>
           <div class="project-links">
-            <a href="https://www.roblox.com/games/9542349477/Moved ↗" class="project-link" target="_blank">https://www.roblox.com/games/9542349477/Moved ↗</a>
-            <a href="https://www.roblox.com/games/121038929262114/Tripod-Simulator ↗" class="project-link" target="_blank">https://www.roblox.com/games/121038929262114/Tripod-Simulator ↗</a>
+            <a href="https://www.roblox.com/games/9542349477/Moved" target="_blank" class="project-link">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M4 2h6v6"/></svg>
+              Play Original
+            </a>
+            <a href="https://www.roblox.com/games/121038929262114/Tripod-Simulator" target="_blank" class="project-link">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M4 2h6v6"/></svg>
+              Play Tripod Simulator
+            </a>
           </div>
         </div>
       </div>
 
+      <!-- PROJECT 04 -->
       <div class="project-row reveal">
         <div>
-          <div class="project-num">03</div>
-       <div class="project-img-strip">
-  <img src="philly.jpg" alt="North Philly"/>
-</div>
+          <div class="project-num">04</div>
+          <div class="project-img-strip">
+            <img src="philly.jpg" alt="North Philly"/>
+          </div>
         </div>
         <div class="project-main">
-          <span class="project-category">Datastores, Vehicle Systems, Bug fixes, and long time Contract work.</span>
+          <span class="project-category">Datastores, Vehicle Systems, Bug Fixes, and Long-Term Contract Work</span>
           <h3 class="project-title">North Philly, and subsequent inner-city roleplaying games by Rbxreece</h3>
           <p class="project-desc">
-            DataStores, Most of the gun system, cars, and all of the main UI work.
-            Rbxreece sold ownership to the game to a long time community member circa late 2024, 
+            DataStores, most of the gun system, cars, and all of the main UI work.
+            Rbxreece sold ownership of the game to a long time community member circa late 2024,
             and my contact with Reece ceased around the end of the project as he stepped away from Roblox development.
-            Though many of my contributions have been replaced in the game, there are still hints of where I worked in the past, 
-            and during it's time the community surrounding these games was very enjoyable.
+            Though many of my contributions have been replaced in the game, there are still hints of where I worked in the past,
+            and during its time the community surrounding these games was very enjoyable.
           </p>
         </div>
         <div class="project-meta">
           <div class="project-tags">
             <span class="project-tag">Datastores</span>
-            <span class="project-tag">Vehicle and Combat Systems</span>
-            <span class="project-tag">Bug fixes</span>
+            <span class="project-tag">Vehicle Systems</span>
+            <span class="project-tag">Bug Fixes</span>
           </div>
         </div>
       </div>
 
-      
+      <!-- PROJECT 05 -->
       <div class="project-row reveal">
         <div>
-          <div class="project-num">03</div>
-        <div class="project-img-strip">
-  <img src="fruit.jpg" alt="One Fruit"/>
-        </div>
+          <div class="project-num">05</div>
+          <div class="project-img-strip">
+            <img src="fruit.jpg" alt="One Fruit"/>
+          </div>
         </div>
         <div class="project-main">
-          <span class="project-category">Backend Development early in the game's life</span>
+          <span class="project-category">Backend Development Early in the Game's Life</span>
           <h3 class="project-title">One Fruit</h3>
           <p class="project-desc">
-            Regretably not much credit for this game can be claimed as my own, as it is one of the most popular projects I have worked on
-            however, my contributions were noticeable in the game's early life. I did mostly contract work in early 2022 and have since moved far away from the project
-            but I look fondly upon the enviornment that surrounded the game in it's early life. One of the most enjoyable teams I've ever worked with and 
-            a project I really had a passion for in the beginning. 
+            Regrettably not much credit for this game can be claimed as my own, as it is one of the most popular projects I have worked on.
+            However, my contributions were noticeable in the game's early life. I did mostly contract work in early 2022 and have since moved far away from the project,
+            but I look fondly upon the environment that surrounded the game in its early life. One of the most enjoyable teams I've ever worked with and
+            a project I really had a passion for in the beginning.
           </p>
         </div>
         <div class="project-meta">
           <div class="project-tags">
             <span class="project-tag">Backend Development</span>
             <span class="project-tag">Testing Leadership</span>
-            <span class="project-tag">Minor work in VFX</span>
+            <span class="project-tag">VFX</span>
           </div>
           <div class="project-links">
-            <a href="https://www.roblox.com/games/11445923563/ONE-FRUIT" target="_blank" class="project-link">Play One Fruit</a>
+            <a href="https://www.roblox.com/games/11445923563/ONE-FRUIT" target="_blank" class="project-link">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M4 2h6v6"/></svg>
+              Play One Fruit
+            </a>
           </div>
         </div>
       </div>
@@ -776,7 +797,7 @@ footer a:hover { color: var(--accent); }
         </p>
         <br>
         <p class="contact-desc">
-          If you take an interest in having me on your team, reach out for a more in-depth account of past works, addiontal references and projects, 
+          If you take an interest in having me on your team, reach out for a more in-depth account of past works, additional references and projects,
           or discussion of rates and availability. I'm happy to talk through any potential work, and can be reached most reliably through Discord.
         </p>
       </div>
