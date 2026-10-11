@@ -114,9 +114,13 @@ track:SetAttribute("Value",10)
 text(hitbox,"1",10,105,30,18,11)
 local maximum=text(hitbox,"50",188,105,30,18,11)
 maximum.TextXAlignment=Enum.TextXAlignment.Right
-local notice=section("Session",16,298,478,78)
-text(notice,"UI TEST MODE",12,15,440,22,14).TextColor3=C.accent
-text(notice,"Controls are visual placeholders only.",12,40,440,22,12)
+local notice=make("Frame",{Position=UDim2.fromOffset(16,298),Size=UDim2.fromOffset(478,78),
+ BackgroundColor3=C.panel,BorderSizePixel=0},body)
+make("UIStroke",{Color=C.border,Thickness=1},notice)
+local message=text(notice,"Down with the System, Free Sports center.",12,10,454,58,16)
+message.TextColor3=C.accent
+message.TextXAlignment=Enum.TextXAlignment.Center
+message.TextWrapped=true
 local footer=text(body,"Private TKG Closet & Rage Cheats",16,423,478,37,23)
 footer.TextColor3=C.accent
 footer.TextXAlignment=Enum.TextXAlignment.Center
