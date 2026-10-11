@@ -8,9 +8,9 @@ local parent = player:WaitForChild("PlayerGui")
 local previous = parent:FindFirstChild("SithHub")
 if previous then previous:Destroy() end
 
-local C = {bg = Color3.fromRGB(28,18,48), panel = Color3.fromRGB(23,0,34),
- border = Color3.fromRGB(87,32,125), text = Color3.fromRGB(172,123,201),
- accent = Color3.fromRGB(184,0,255), track = Color3.fromRGB(62,17,91)}
+local C = {bg = Color3.fromRGB(10,11,13), panel = Color3.fromRGB(14,15,17),
+ border = Color3.fromRGB(65,68,73), text = Color3.fromRGB(202,205,210),
+ accent = Color3.fromRGB(242,244,247), track = Color3.fromRGB(34,36,40)}
 local function make(class, props, owner)
  local item = Instance.new(class)
  for key, value in pairs(props) do item[key] = value end
@@ -22,6 +22,23 @@ local gui = make("ScreenGui", {Name="SithHub", ResetOnSpawn=false, IgnoreGuiInse
 local window = make("Frame", {Name="Window", Size=UDim2.fromOffset(510,550),
  Position=UDim2.fromScale(.5,.5), AnchorPoint=Vector2.new(.5,.5),
  BackgroundColor3=C.bg, BorderSizePixel=0, Active=true}, gui)
+-- Procedural twill weave: no external texture asset required.
+local weave=make("Frame",{Name="CarbonFiber",Size=UDim2.fromScale(1,1),
+ BackgroundTransparency=1,BorderSizePixel=0,ClipsDescendants=true,Active=false},window)
+for row=0,34 do
+ for col=0,16 do
+  local raised=(col+row)%4<2
+  local tile=make("Frame",{Position=UDim2.fromOffset(col*32,row*16),
+   Size=UDim2.fromOffset(31,15),BackgroundColor3=raised and Color3.fromRGB(24,26,29)
+    or Color3.fromRGB(15,17,19),BorderSizePixel=0,Active=false},weave)
+  make("UIGradient",{Rotation=raised and 90 or 0,
+   Color=ColorSequence.new(Color3.fromRGB(165,170,180),Color3.fromRGB(65,68,75))},tile)
+  make("Frame",{Position=UDim2.fromOffset(raised and 0 or 15,raised and 7 or 0),
+   Size=raised and UDim2.new(1,0,0,1) or UDim2.new(0,1,1,0),
+   BackgroundColor3=Color3.fromRGB(6,7,9),BackgroundTransparency=.35,
+   BorderSizePixel=0,Active=false},tile)
+ end
+end
 make("UIStroke", {Color=C.border, Thickness=2}, window)
 local scale = make("UIScale", {Scale=1}, window)
 local function fit()
@@ -50,7 +67,7 @@ local function text(owner, value, x,y,w,h,size)
  Font=Enum.Font.Code, TextSize=size or 13, TextXAlignment=Enum.TextXAlignment.Left},owner)
 end
 local title=make("TextButton", {Name="DragHandle",Size=UDim2.new(1,-66,0,30),
- BackgroundColor3=C.track, BorderSizePixel=0, Text="  SithHub V1.0 | Combat  Force  Visuals",
+ BackgroundColor3=C.track, BorderSizePixel=0, Text="  SithHub V1.1 | Combat  Force  Visuals",
  TextColor3=C.text, Font=Enum.Font.Code,TextSize=13,TextXAlignment=Enum.TextXAlignment.Left,
  AutoButtonColor=false},window)
 local close=make("TextButton", {Position=UDim2.new(1,-32,0,0),Size=UDim2.fromOffset(32,30),
@@ -85,7 +102,7 @@ local function toggle(panel,label,y)
   local enabled=not button:GetAttribute("Enabled")
   button:SetAttribute("Enabled",enabled)
   mark.Text=enabled and "✓" or ""
-  box.BackgroundColor3=enabled and Color3.fromRGB(79,18,110) or C.track
+  box.BackgroundColor3=enabled and Color3.fromRGB(73,77,83) or C.track
  end)
 end
 local combat=section("Combat",16,20,228,132)
@@ -107,7 +124,7 @@ local track=make("TextButton",{Name="HitboxSize",Position=UDim2.fromOffset(10,85
 make("UIStroke",{Color=C.border,Thickness=1},track)
 local fill=make("Frame",{Size=UDim2.fromScale(9/49,1),BackgroundColor3=C.accent,
  BorderSizePixel=0},track)
-make("UIGradient",{Color=ColorSequence.new(Color3.fromRGB(77,14,107),C.accent)},fill)
+make("UIGradient",{Color=ColorSequence.new(Color3.fromRGB(70,74,81),C.accent)},fill)
 local knob=make("Frame",{AnchorPoint=Vector2.new(.5,.5),Position=UDim2.fromScale(9/49,.5),
  Size=UDim2.fromOffset(5,22),BackgroundColor3=C.text,BorderSizePixel=0},track)
 track:SetAttribute("Value",10)
